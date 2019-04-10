@@ -38,7 +38,7 @@ $url = $_GET["url"];
 // 从url中获取id
 $id = substr($url, -19, 10);
 // 移动到notice目录
-chdir("notice");
+chdir("/www/wwwroot/mp/notice");
 
 echo '开始匹配' . $id . "\n";
 
@@ -91,7 +91,7 @@ if ($temp[0]) {
         file_put_contents("$id/" . $attchName, $attchFile);
         $attachment[$j] = array(
           'tag' => 'doc',
-          'url' => 'https://mrhope.top/mpServer/notice/' . $id . '/' . $attchName,
+          'url' => 'https://mp.nenuyouth.com/notice/' . $id . '/' . $attchName,
           'docName' => $attachmentData[2][$j] . '.' . $attachmentData[3][$j]
         );
     }

@@ -36,7 +36,7 @@ function Http_get($url)
 }
 
 // 创建通知文件夹
-chdir("notice");
+chdir("/www/wwwroot/mp/notice");
 
 // 将从内网公告网址得到的字符串做处理，去掉其中的制表、换行符号
 $listContent = preg_replace(
@@ -126,7 +126,7 @@ for ($i = 0; $i < count($listData[0]); $i++) {
                 file_put_contents("$id/".$attchName, $attchFile);
                 $attachment[$j]=array(
                     'tag'=>'doc',
-                    'url'=>'https://mrhope.top/mpServer/notice/'.$id.'/'.$attchName,
+                    'url'=>'https://mp.nenuyouth.com/notice/'.$id.'/'.$attchName,
                     'docName'=>$attachmentData[2][$j].'.'.$attachmentData[3][$j]
                 );
             }
