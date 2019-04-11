@@ -1,11 +1,11 @@
 <?php
 /**
- * Notice Handler
+ * News Handler
  *
  * PHP version 7
  *
- * @category  Notice
- * @package   Notice
+ * @category  News
+ * @package   News
  * @author    Mr.Hope <zhangbowang1998@gmail.com>
  * @copyright 2019 HopeStudio
  * @license   No License
@@ -37,17 +37,18 @@ function Http_get(string $url): string
 $url = $_GET["url"];
 // 从url中获取id
 $id = substr($url, -19, 10);
-// 移动到notice目录
-chdir("/www/wwwroot/mp/notice");
+// 移动到news目录
+chdir("/www/wwwroot/mp/news");
+
 echo '开始匹配' . $id . "<br />";
 
 // 获得通知html
-$noticeHtml = Http_get("http://mid.nenu.edu.cn:8080/xxhbwx/HttpReq?appid=2&url=$url");
+$newsHtml = Http_get("http://mid.nenu.edu.cn:8080/xxhbwx/HttpReq?appid=2&url=$url");
 
 // 处理通知内容，去除br，无用换行和回车，以及html注释
-$noticeContent = preg_replace(
+$newsContent = preg_replace(
   [
-    "/<br\/>/",
+    "/<(br|em)\/>/",
     "/[\r\n\t]/",
     "/<!--.*?-->/",
     "/<st.*?g>(.*?)<\/.*？>/",
@@ -55,17 +56,17 @@ $noticeContent = preg_replace(
     "/<em>(.*?)<\/em>/"
   ],
   ["#@", "", "", "$1", "$1", "$1"],
-  $noticeHtml
+  $newsHtml
 );
 
-echo '通知内容是：' . $noticeContent;
+echo '通知内容是：' . $newsContent;
 
 // 按照特定规则匹配通知内容
-$noticeRule = '/(.*)\${6}.*ent\">(.*)<p s.*?ht;\">(.*?)<\/p/';
-preg_match_all($noticeRule, $noticeContent, $noticeData);
+$newsRule = '/(.*)\${6}.*ent\">(.*)<d.*?eta\">(.*?)<\/d/';
+preg_match_all($newsRule, $newsContent, $newsData);
 
 // 输出通知信息
-var_dump($noticeData);
+var_dump($newsData);
 
 // 得到正文和页脚
 $text = preg_replace(
@@ -74,9 +75,9 @@ $text = preg_replace(
     "/<\/p>|<p(.*)?>/"
   ],
   ["\n", ""],
-  $noticeData[2][0]
+  $newsData[2][0]
 );
-$footer = preg_replace("/#@/", "\n", $noticeData[3][0]);
+$footer = preg_replace("/#@/", "\n", $newsData[3][0]);
 
 // 使用特定规则对正文进行匹配寻找附件
 preg_match_all('/附件：(?:[0-9]．)?/', $text, $temp, PREG_OFFSET_CAPTURE);
@@ -116,7 +117,7 @@ if ($temp[0]) {
     file_put_contents("$id/" . $attchName, $attchFile);
     $attachment[$j] = array(
       'tag' => 'doc',
-      'url' => 'https://mp.nenuyouth.com/notice/' . $id . '/' . $attchName,
+      'url' => 'https://mp.nenuyouth.com/news/' . $id . '/' . $attchName,
       'docName' => $attachmentData[2][$j] . '.' . $attachmentData[3][$j]
     );
   }
@@ -129,8 +130,8 @@ if ($temp[0]) {
   );
 
   // 生成通知数据
-  $notice = array(
-    "title" => $noticeData[1][0],
+  $news = array(
+    "title" => $newsData[1][0],
     "content" => $text,
     "attachment" => $attachment,
     "footer" => $footer
@@ -146,14 +147,13 @@ if ($temp[0]) {
   );
 
   // 生成通知数据
-  $notice = array(
-    "title" => $noticeData[1][0],
+  $news = array(
+    "title" => $newsData[1][0],
     "content" => $text,
     "footer" => $footer
   );
 }
-var_dump($notice);
-
+var_dump($news);
 echo $text;
 $tableRule = '/(?:\<div.*?\>)?\<table.*?\>(?=.|\n)*?\<\/table>(?:\<\/div>)?/';
 // $tableRule='/(?:\<div.*?\>)?((?:\<table.*?\>)(?=.|\n)*?(?:\<\/table>))(?:\<\/div>)?/';
@@ -171,10 +171,9 @@ for ($l = 0; $l < count($tableData[0]); $l++) {
   preg_match_all($tableRule3, $tableString2, $tableData3);
   var_dump($tableData3);
 }
-var_dump($notice);
-$noticeString = json_encode($notice, 320);
-$noticeResult = file_put_contents("$id.json", $noticeString);
+$newsString = json_encode($news, 320);
+$newsResult = file_put_contents("$id.json", $newsString);
 
-if ($noticeResult) {
-  echo '通知' . $id . "生成成功!<br />";
+if ($newsResult) {
+  echo '新闻' . $id . "生成成功!<br />";
 }
