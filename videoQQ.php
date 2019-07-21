@@ -1,4 +1,19 @@
 <?php
+/**
+ * Page Handler
+ *
+ * PHP version 7
+ *
+ * @category  Page
+ * @package   Page
+ * @author    Mr.Hope <zhangbowang1998@gmail.com>
+ * @copyright 2019 HopeStudio
+ * @license   No License
+ * @link      https://nenuyouth.com
+ */
+
+declare (strict_types = 1);
+
 $vid=$_GET["vid"];
 function http_get($url)
 {
