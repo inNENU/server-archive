@@ -17,7 +17,6 @@ header("Content-Type: text/html; charset=utf-8");
 // 是否强行升级
 $forceUpdate = isset($_GET['force']) ? true : false;
 
-
 /**
  * 网站数据请求函数
  *
