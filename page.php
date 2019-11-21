@@ -28,7 +28,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'OPTIONS') {
-  chdir("/www/wwwroot/mp/page");
+  chdir("/www/wwwroot/innenu-mp/page");
 
   $json = json_decode(file_get_contents('php://input'));
 

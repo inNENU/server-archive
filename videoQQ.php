@@ -27,7 +27,6 @@ function http_get($url)
     curl_close($curl);
     return $response;
 }
-// $data = http_get("https://vv.video.qq.com/getinfo?otype=json&vid=$vid");
 $data = http_get("http://vv.video.qq.com/getinfo?vids=$vid&platform=11&charge=0&otype=json");
 var_dump($data);
 echo $data;

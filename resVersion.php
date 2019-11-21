@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 header("content-type:application/json;charset=utf-8");
 
-chdir("/www/wwwroot/mp");
+chdir("/www/wwwroot/innenu-mp");
 
 $name = $_GET['res'];
 
