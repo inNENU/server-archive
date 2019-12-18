@@ -61,4 +61,3 @@ $url = 'https://ids.nenu.edu.cn/amserver/UI/Login';
 $response = Http_get($url);
 
 var_dump($response);
-// $data = json_decode($response, true);

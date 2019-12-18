@@ -36,7 +36,7 @@ function Http_get($url)
 }
 
 // 创建通知文件夹
-chdir("/www/wwwroot/innenu-mp/news");
+chdir("../news/");
 
 // 将从内网公告网址得到的字符串做处理，去掉其中的制表、换行符号
 $listContent = preg_replace(

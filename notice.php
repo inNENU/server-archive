@@ -38,7 +38,7 @@ $url = $_GET["url"];
 // 从url中获取id
 $id = substr($url, -19, 10);
 // 移动到notice目录
-chdir("/www/wwwroot/innenu-mp/notice");
+chdir("../notice/");
 echo '开始匹配' . $id . "<br />";
 
 // 获得通知html
