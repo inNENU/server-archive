@@ -10,7 +10,7 @@
  * @author    Mr.Hope <zhangbowang1998@gmail.com>
  * @copyright 2019 HopeStudio
  * @license   No License
- * @link      https://nenuyouth.com
+ * @link      https://mrhope.site
  */
 
 header("Content-Type: text/json; charset=utf-8");
